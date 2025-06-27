@@ -15,6 +15,16 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// ... after app.use(express.json());
+
+// --- START OF DEBUGGING CODE ---
+console.log("--- CHECKING ENVIRONMENT VARIABLES ---");
+console.log("Type of MONGODB_URI:", typeof process.env.MONGODB_URI);
+console.log("Value of MONGODB_URI:", process.env.MONGODB_URI);
+console.log("------------------------------------");
+// --- END OF DEBUGGING CODE ---
+
+
 // ✅ MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
@@ -22,6 +32,8 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
 .then(() => console.log('✅ MongoDB connected'))
 .catch((err) => console.error('❌ MongoDB connection error:', err));
+
+// ... rest of your code
 
 // ✅ Get all moments (with search + pagination)
 app.get('/moments', async (req, res) => {
