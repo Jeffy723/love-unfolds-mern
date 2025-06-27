@@ -1,0 +1,17 @@
+body {
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 700px;
+}
+
+.list-group-item {
+  transition: transform 0.2s ease;
+}
+
+.list-group-item:hover {
+  transform: scale(1.02);
+  background-color: #fff0f5;
+}
