@@ -14,7 +14,7 @@ function App() {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 5;
 
-  // ✅ Updated API URL for Railway
+  // ✅ Update this to your Railway backend URL
   const API_BASE_URL = 'https://love-unfolds.up.railway.app';
 
   const fetchMoments = async (page = 1, search = '') => {

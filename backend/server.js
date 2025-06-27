@@ -11,19 +11,15 @@ const PORT = process.env.PORT || 5000;
 
 // ✅ Middleware
 app.use(cors({
-  origin: '*',   // ✅ Allow all origins for now
+  origin: '*',
 }));
 app.use(express.json());
 
-// ... after app.use(express.json());
-
-// --- START OF DEBUGGING CODE ---
-console.log("--- CHECKING ENVIRONMENT VARIABLES ---");
-console.log("Type of MONGODB_URI:", typeof process.env.MONGODB_URI);
-console.log("Value of MONGODB_URI:", process.env.MONGODB_URI);
-console.log("------------------------------------");
-// --- END OF DEBUGGING CODE ---
-
+// ✅ Check ENV Variable
+console.log('------------------------------------');
+console.log('✅ Checking ENV variables...');
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
+console.log('------------------------------------');
 
 // ✅ MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -33,9 +29,9 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => console.log('✅ MongoDB connected'))
 .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// ... rest of your code
+// ✅ API Routes
 
-// ✅ Get all moments (with search + pagination)
+// Get all moments
 app.get('/moments', async (req, res) => {
   try {
     const { search = '', page = 1, limit = 5 } = req.query;
@@ -60,7 +56,7 @@ app.get('/moments', async (req, res) => {
   }
 });
 
-// ✅ Create a new moment
+// Create moment
 app.post('/moments', async (req, res) => {
   const newMoment = new Moment(req.body);
   try {
@@ -71,7 +67,7 @@ app.post('/moments', async (req, res) => {
   }
 });
 
-// ✅ Delete a moment
+// Delete moment
 app.delete('/moments/:id', async (req, res) => {
   try {
     await Moment.findByIdAndDelete(req.params.id);
@@ -81,7 +77,12 @@ app.delete('/moments/:id', async (req, res) => {
   }
 });
 
-// ✅ Server Listen
+// Root endpoint (Optional)
+app.get('/', (req, res) => {
+  res.send('❤️ Love Unfolds Backend Running ❤️');
+});
+
+// Start server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
