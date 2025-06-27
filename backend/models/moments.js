@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const momentSchema = new mongoose.Schema(
   {
@@ -10,4 +10,4 @@ const momentSchema = new mongoose.Schema(
 
 const Moment = mongoose.model('Moment', momentSchema);
 
-export default Moment;
+module.exports = Moment;
