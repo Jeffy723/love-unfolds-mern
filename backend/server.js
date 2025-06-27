@@ -11,27 +11,16 @@ const PORT = process.env.PORT || 5000;
 
 // ✅ Middleware
 app.use(cors({
-  origin: '*',
+  origin: 'https://love-unfolds-mern.vercel.app',  // ✅ Allow only your frontend domain
 }));
 app.use(express.json());
 
-// ✅ Check ENV Variable
-console.log('------------------------------------');
-console.log('✅ Checking ENV variables...');
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
-console.log('------------------------------------');
-
 // ✅ MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => console.log('✅ MongoDB connected'))
-.catch((err) => console.error('❌ MongoDB connection error:', err));
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// ✅ API Routes
-
-// Get all moments
+// ✅ Get all moments (search + pagination)
 app.get('/moments', async (req, res) => {
   try {
     const { search = '', page = 1, limit = 5 } = req.query;
@@ -56,7 +45,7 @@ app.get('/moments', async (req, res) => {
   }
 });
 
-// Create moment
+// ✅ Create a new moment
 app.post('/moments', async (req, res) => {
   const newMoment = new Moment(req.body);
   try {
@@ -67,7 +56,7 @@ app.post('/moments', async (req, res) => {
   }
 });
 
-// Delete moment
+// ✅ Delete a moment
 app.delete('/moments/:id', async (req, res) => {
   try {
     await Moment.findByIdAndDelete(req.params.id);
@@ -77,12 +66,7 @@ app.delete('/moments/:id', async (req, res) => {
   }
 });
 
-// Root endpoint (Optional)
-app.get('/', (req, res) => {
-  res.send('❤️ Love Unfolds Backend Running ❤️');
-});
-
-// Start server
+// ✅ Server Listen
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
