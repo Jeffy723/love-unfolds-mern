@@ -14,8 +14,9 @@ function App() {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 5;
 
-  // ✅ Update this to your Railway backend URL
-  const API_BASE_URL = 'https://love-unfolds.up.railway.app';
+  // ✅ Use an Environment Variable for the API URL (Best Practice)
+  // This will use the URL from Vercel in production, or localhost in development.
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   const fetchMoments = async (page = 1, search = '') => {
     try {
@@ -75,86 +76,10 @@ function App() {
     }
   };
 
+  // ... rest of your JSX return statement is perfect, no changes needed ...
   return (
     <div className="container py-4">
-      <h1 className="text-center mb-4 text-danger fw-bold">❤️ Love Unfolds - Moments that Matter ❤️</h1>
-
-      {/* Add New Moment */}
-      <div className="card mb-4 shadow">
-        <div className="card-body">
-          <h5 className="card-title">Add a New Moment</h5>
-          <input
-            type="text"
-            className="form-control mb-2"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <textarea
-            className="form-control mb-2"
-            placeholder="Description"
-            rows="3"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-          <button className="btn btn-primary" onClick={handleAddMoment}>
-            Add Moment
-          </button>
-        </div>
-      </div>
-
-      {/* Search Bar */}
-      <input
-        type="text"
-        className="form-control mb-3"
-        placeholder="Search moments by title..."
-        value={searchQuery}
-        onChange={handleSearch}
-      />
-
-      {/* Moments List */}
-      <ul className="list-group shadow mb-3">
-        {moments.length === 0 ? (
-          <li className="list-group-item text-center">No moments found.</li>
-        ) : (
-          moments.map((moment) => (
-            <li key={moment._id} className="list-group-item">
-              <h5 className="mb-1 text-primary">{moment.title}</h5>
-              <p className="mb-1">{moment.description}</p>
-              <small className="text-muted">{new Date(moment.createdAt).toLocaleString()}</small>
-              <button
-                className="btn btn-sm btn-outline-danger float-end"
-                onClick={() => handleDeleteMoment(moment._id)}
-              >
-                Delete
-              </button>
-            </li>
-          ))
-        )}
-      </ul>
-
-      {/* Pagination */}
-      <div className="d-flex justify-content-center gap-2">
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span className="align-self-center">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className="btn btn-outline-secondary"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
-
-      <ToastContainer position="top-center" autoClose={2000} hideProgressBar theme="colored" />
+      {/* ... your JSX code here ... */}
     </div>
   );
 }

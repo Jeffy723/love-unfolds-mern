@@ -11,11 +11,17 @@ const PORT = process.env.PORT || 5000;
 
 // ✅ Middleware
 app.use(cors({
-  origin: 'https://love-unfolds-mern.vercel.app',  // ✅ Allow only your frontend domain
+  origin: 'https://love-unfolds-mern.vercel.app', // ✅ Allow only your frontend domain
 }));
 app.use(express.json());
 
-// ✅ MongoDB Connection
+// ✅ Health Check Route for Railway to keep the server alive
+// This is the most important fix.
+app.get('/', (req, res) => {
+  res.status(200).send('Love Unfolds API is healthy and running!');
+});
+
+// ✅ MongoDB Connection (No options needed for modern Mongoose)
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.error('❌ MongoDB connection error:', err));
